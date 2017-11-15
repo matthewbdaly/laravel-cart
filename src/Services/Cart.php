@@ -3,6 +3,7 @@
 namespace Matthewbdaly\LaravelCart\Services;
 
 use Matthewbdaly\LaravelCart\Contracts\Services\Cart as CartContract;
+use Matthewbdaly\LaravelCart\Contracts\Services\UniqueId;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Collection;
 
@@ -10,9 +11,12 @@ class Cart implements CartContract
 {
     protected $session;
 
-    public function __construct(Session $session)
+    protected $uniqid;
+
+    public function __construct(Session $session, UniqueId $uniqid)
     {
         $this->session = $session;
+        $this->uniqid = $uniqid;
     }
 
     public function insert(array $item)

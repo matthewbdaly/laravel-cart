@@ -16,7 +16,8 @@ class CartTest extends TestCase
         $session = m::mock('Illuminate\Contracts\Session\Session');
         $session->shouldReceive('get')->with('Matthewbdaly\LaravelCart\Services\Cart')->once()->andReturn([]);
         $session->shouldReceive('put')->with('Matthewbdaly\LaravelCart\Services\Cart', [$data])->once();
-        $cart = new Cart($session);
+        $uniqid = m::mock('Matthewbdaly\LaravelCart\Contracts\Services\UniqueId');
+        $cart = new Cart($session, $uniqid);
         $this->assertNull($cart->insert($data));
     }
 
@@ -28,7 +29,8 @@ class CartTest extends TestCase
         $session = m::mock('Illuminate\Contracts\Session\Session');
         $session->shouldReceive('get')->with('Matthewbdaly\LaravelCart\Services\Cart')->once()->andReturn([]);
         $session->shouldReceive('put')->with('Matthewbdaly\LaravelCart\Services\Cart', $data)->once();
-        $cart = new Cart($session);
+        $uniqid = m::mock('Matthewbdaly\LaravelCart\Contracts\Services\UniqueId');
+        $cart = new Cart($session, $uniqid);
         $this->assertNull($cart->insert($data));
     }
 
@@ -40,7 +42,8 @@ class CartTest extends TestCase
         $session = m::mock('Illuminate\Contracts\Session\Session');
         $session->shouldReceive('get')->with('Matthewbdaly\LaravelCart\Services\Cart')->once()->andReturn([$data[0]]);
         $session->shouldReceive('put')->with('Matthewbdaly\LaravelCart\Services\Cart', $data)->once();
-        $cart = new Cart($session);
+        $uniqid = m::mock('Matthewbdaly\LaravelCart\Contracts\Services\UniqueId');
+        $cart = new Cart($session, $uniqid);
         $this->assertNull($cart->insert($data[1]));
     }
 
