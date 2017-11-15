@@ -8,15 +8,24 @@ use Mockery as m;
 
 class CartTest extends TestCase
 {
-    public function testCanAddItemToCart()
+    /**
+     * @dataProvider dataProvider
+     */
+    public function testCanAddItemToCart($data)
     {
         $session = m::mock('Illuminate\Contracts\Session\Session');
+        $session->shouldReceive('put')->with('laravel_shopping_cart', $data);
         $cart = new Cart($session);
-        $cart->insert([
+        $cart->insert($data);
+    }
+
+    public function dataProvider()
+    {
+        return [[
             'qty'     => 1,
             'price'   => 39.95,
             'name'    => 'T-Shirt',
             'options' => array('Size' => 'L', 'Color' => 'Red')
-        ]);
+        ]];
     }
 }
