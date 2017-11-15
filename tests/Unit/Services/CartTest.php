@@ -75,6 +75,21 @@ class CartTest extends TestCase
     /**
      * @dataProvider arrayProvider
      */
+    public function testCanRemoveItem($data)
+    {
+        $data[0]['row_id'] = 'my_row_id_1';
+        $data[1]['row_id'] = 'my_row_id_2';
+        $session = m::mock('Illuminate\Contracts\Session\Session');
+        $session->shouldReceive('get')->with('Matthewbdaly\LaravelCart\Services\Cart')->once()->andReturn($data);
+        $session->shouldReceive('put')->with('Matthewbdaly\LaravelCart\Services\Cart', [$data[1]])->once();
+        $uniqid = m::mock('Matthewbdaly\LaravelCart\Contracts\Services\UniqueId');
+        $cart = new Cart($session, $uniqid);
+        $this->assertEquals([], $cart->remove('my_row_id_1'));
+    }
+
+    /**
+     * @dataProvider arrayProvider
+     */
     public function testCanDestroyCart($data)
     {
         $session = m::mock('Illuminate\Contracts\Session\Session');
