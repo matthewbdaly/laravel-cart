@@ -13,10 +13,13 @@ class CartTest extends TestCase
      */
     public function testCanAddItemToCart($data)
     {
+        $formattedData = $data;
+        $formattedData['row_id'] = 'my_row_id_1';
         $session = m::mock('Illuminate\Contracts\Session\Session');
         $session->shouldReceive('get')->with('Matthewbdaly\LaravelCart\Services\Cart')->once()->andReturn([]);
-        $session->shouldReceive('put')->with('Matthewbdaly\LaravelCart\Services\Cart', [$data])->once();
+        $session->shouldReceive('put')->with('Matthewbdaly\LaravelCart\Services\Cart', [$formattedData])->once();
         $uniqid = m::mock('Matthewbdaly\LaravelCart\Contracts\Services\UniqueId');
+        $uniqid->shouldReceive('get')->once()->andReturn('my_row_id_1');
         $cart = new Cart($session, $uniqid);
         $this->assertNull($cart->insert($data));
     }
@@ -26,10 +29,15 @@ class CartTest extends TestCase
      */
     public function testCanAddMultipleItemsToCart($data)
     {
+        $formattedData = $data;
+        $formattedData[0]['row_id'] = 'my_row_id_1';
+        $formattedData[1]['row_id'] = 'my_row_id_2';
         $session = m::mock('Illuminate\Contracts\Session\Session');
         $session->shouldReceive('get')->with('Matthewbdaly\LaravelCart\Services\Cart')->once()->andReturn([]);
-        $session->shouldReceive('put')->with('Matthewbdaly\LaravelCart\Services\Cart', $data)->once();
+        $session->shouldReceive('put')->with('Matthewbdaly\LaravelCart\Services\Cart', $formattedData)->once();
         $uniqid = m::mock('Matthewbdaly\LaravelCart\Contracts\Services\UniqueId');
+        $uniqid->shouldReceive('get')->once()->andReturn('my_row_id_1');
+        $uniqid->shouldReceive('get')->once()->andReturn('my_row_id_2');
         $cart = new Cart($session, $uniqid);
         $this->assertNull($cart->insert($data));
     }
@@ -43,6 +51,7 @@ class CartTest extends TestCase
         $session->shouldReceive('get')->with('Matthewbdaly\LaravelCart\Services\Cart')->once()->andReturn([$data[0]]);
         $session->shouldReceive('put')->with('Matthewbdaly\LaravelCart\Services\Cart', $data)->once();
         $uniqid = m::mock('Matthewbdaly\LaravelCart\Contracts\Services\UniqueId');
+        $uniqid->shouldReceive('get')->once()->andReturn('my_row_id_2');
         $cart = new Cart($session, $uniqid);
         $this->assertNull($cart->insert($data[1]));
     }

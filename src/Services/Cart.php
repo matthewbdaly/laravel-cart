@@ -23,9 +23,15 @@ class Cart implements CartContract
     {
         $content = new Collection($this->session->get('Matthewbdaly\LaravelCart\Services\Cart'));
         if ($this->hasStringKeys($item)) {
+            if (!array_key_exists('row_id', $item)) {
+                $item['row_id'] = $this->uniqid->get();
+            }
             $content->push($item);
         } else {
             foreach ($item as $subitem) {
+                if (!array_key_exists('row_id', $subitem)) {
+                    $subitem['row_id'] = $this->uniqid->get();
+                }
                 $content->push($subitem);
             }
         }
