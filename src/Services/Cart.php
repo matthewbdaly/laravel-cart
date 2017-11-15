@@ -47,11 +47,22 @@ class Cart implements CartContract
         return $this->session->put('Matthewbdaly\LaravelCart\Services\Cart', $content->toArray());
     }
 
+    /**
+     * Get all objects from cart
+     *
+     * @return null
+     */
     public function all()
     {
         return $this->session->get('Matthewbdaly\LaravelCart\Services\Cart');
     }
 
+    /**
+     * Get a single object from cart
+     *
+     * @param string $rowId The row ID.
+     * @return array
+     */
     public function get(string $rowId)
     {
         return Collection::make($this->all())

@@ -12,8 +12,19 @@ interface Cart
      */
     public function insert(array $item);
 
+    /**
+     * Get all objects from cart
+     *
+     * @return null
+     */
     public function all();
 
+    /**
+     * Get a single object from cart
+     *
+     * @param string $rowId The row ID.
+     * @return array
+     */
     public function get(string $rowId);
     
     public function update(string $rowId, array $data);
