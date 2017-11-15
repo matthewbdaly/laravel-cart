@@ -4,4 +4,5 @@ namespace Matthewbdaly\LaravelCart\Contracts\Services;
 
 interface Cart
 {
+    public function insert(array $item)
 }
