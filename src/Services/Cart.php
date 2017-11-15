@@ -16,6 +16,16 @@ class Cart implements CartContract
 
     public function insert(array $item)
     {
-        return $this->session->put('laravel_shopping_cart', $item);
+        if ($this->hasStringKeys($item)) {
+            return $this->session->put('laravel_shopping_cart', $item);
+        } else {
+            foreach ($item as $subitem) {
+                $this->insert($subitem);
+            }
+        }
+    }
+
+    private function hasStringKeys(array $items) {
+        return count(array_filter(array_keys($items), 'is_string')) > 0;
     }
 }
