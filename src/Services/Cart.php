@@ -38,6 +38,11 @@ class Cart implements CartContract
         return $this->session->put('Matthewbdaly\LaravelCart\Services\Cart', $content->toArray());
     }
 
+    public function all()
+    {
+        return $this->session->get('Matthewbdaly\LaravelCart\Services\Cart');
+    }
+
     private function hasStringKeys(array $items) {
         return count(array_filter(array_keys($items), 'is_string')) > 0;
     }

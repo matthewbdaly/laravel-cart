@@ -60,6 +60,18 @@ class CartTest extends TestCase
         $this->assertNull($cart->insert($data[1]));
     }
 
+    /**
+     * @dataProvider arrayProvider
+     */
+    public function testCanGetAllItems($data)
+    {
+        $session = m::mock('Illuminate\Contracts\Session\Session');
+        $session->shouldReceive('get')->with('Matthewbdaly\LaravelCart\Services\Cart')->once()->andReturn($data);
+        $uniqid = m::mock('Matthewbdaly\LaravelCart\Contracts\Services\UniqueId');
+        $cart = new Cart($session, $uniqid);
+        $this->assertEquals($data, $cart->all());
+    }
+
     public function itemProvider()
     {
         return [[[
