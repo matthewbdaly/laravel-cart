@@ -43,6 +43,14 @@ class Cart implements CartContract
         return $this->session->get('Matthewbdaly\LaravelCart\Services\Cart');
     }
 
+    public function get(string $rowId)
+    {
+        return Collection::make($this->all())
+            ->first(function ($item) use ($rowId) {
+                return $item['row_id'] == $rowId;
+            });
+    }
+
     public function update(string $rowId, array $data)
     {
         $content = Collection::make($this->all())

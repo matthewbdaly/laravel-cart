@@ -8,6 +8,8 @@ interface Cart
 
     public function all();
 
+    public function get(string $rowId);
+    
     public function update(string $rowId, array $data);
 
     public function remove(string $rowId);
