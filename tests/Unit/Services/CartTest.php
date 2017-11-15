@@ -16,7 +16,7 @@ class CartTest extends TestCase
         $session = m::mock('Illuminate\Contracts\Session\Session');
         $session->shouldReceive('put')->with('laravel_shopping_cart', $data);
         $cart = new Cart($session);
-        $cart->insert($data);
+        $this->assertNull($cart->insert($data));
     }
 
     public function dataProvider()
