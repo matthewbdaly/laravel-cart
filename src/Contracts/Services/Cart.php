@@ -26,14 +26,42 @@ interface Cart
      * @return array
      */
     public function get(string $rowId);
-    
+  
+    /**
+     * Update a single object from cart
+     *
+     * @param string $rowId The row ID.
+     * @param array  $data  The data to update.
+     * @return array
+     */
     public function update(string $rowId, array $data);
 
+    /**
+     * Remove a single object from cart
+     *
+     * @param string $rowId The row ID.
+     * @return array
+     */
     public function remove(string $rowId);
 
+    /**
+     * Return total price
+     *
+     * @return float
+     */
     public function total();
 
+    /**
+     * Return total number of items
+     *
+     * @return integer
+     */
     public function totalItems();
-    
+ 
+    /**
+     * Destroy cart
+     *
+     * @return null
+     */
     public function destroy();
 }

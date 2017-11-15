@@ -16,6 +16,12 @@ class Cart implements CartContract
 
     protected $uniqid;
 
+    /**
+     * Constructor
+     *
+     * @param Session  $session The session instance.
+     * @param UniqueId $uniqid  The unique ID instance.
+     */
     public function __construct(Session $session, UniqueId $uniqid)
     {
         $this->session = $session;
@@ -70,7 +76,14 @@ class Cart implements CartContract
                 return $item['row_id'] == $rowId;
             });
     }
-
+ 
+    /**
+     * Update a single object from cart
+     *
+     * @param string $rowId The row ID.
+     * @param array  $data  The data to update.
+     * @return array
+     */
     public function update(string $rowId, array $data)
     {
         $content = Collection::make($this->all())
@@ -85,6 +98,12 @@ class Cart implements CartContract
         return $this->session->put('Matthewbdaly\LaravelCart\Services\Cart', $content);
     }
 
+    /**
+     * Remove a single object from cart
+     *
+     * @param string $rowId The row ID.
+     * @return array
+     */
     public function remove(string $rowId)
     {
         $content = Collection::make($this->all())
@@ -94,11 +113,21 @@ class Cart implements CartContract
         return $this->session->put('Matthewbdaly\LaravelCart\Services\Cart', $content);
     }
 
+    /**
+     * Destroy cart
+     *
+     * @return null
+     */
     public function destroy()
     {
         return $this->session->forget('Matthewbdaly\LaravelCart\Services\Cart');
     }
 
+    /**
+     * Return total price
+     *
+     * @return float
+     */
     public function total()
     {
         return Collection::make($this->all())
@@ -107,11 +136,22 @@ class Cart implements CartContract
             }, 0);
     }
 
+    /**
+     * Return total number of items
+     *
+     * @return integer
+     */
     public function totalItems()
     {
         return count($this->all());
     }
 
+    /**
+     * Verify if array has string keys
+     *
+     * @param array $items The array to check.
+     * @return integer
+     */
     private function hasStringKeys(array $items)
     {
         return count(array_filter(array_keys($items), 'is_string')) > 0;
