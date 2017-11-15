@@ -32,6 +32,18 @@ class CartTest extends TestCase
         $this->assertNull($cart->insert($data));
     }
 
+    /**
+     * @dataProvider arrayProvider
+     */
+    public function testCanAddToCartWhenItemsAlreadyExist($data)
+    {
+        $session = m::mock('Illuminate\Contracts\Session\Session');
+        $session->shouldReceive('get')->with('Matthewbdaly\LaravelCart\Services\Cart')->once()->andReturn([$data[0]]);
+        $session->shouldReceive('put')->with('Matthewbdaly\LaravelCart\Services\Cart', $data)->once();
+        $cart = new Cart($session);
+        $this->assertNull($cart->insert($data[1]));
+    }
+
     public function itemProvider()
     {
         return [[[
