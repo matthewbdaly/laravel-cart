@@ -72,6 +72,18 @@ class CartTest extends TestCase
         $this->assertEquals($data, $cart->all());
     }
 
+    /**
+     * @dataProvider arrayProvider
+     */
+    public function testCanDestroyCart($data)
+    {
+        $session = m::mock('Illuminate\Contracts\Session\Session');
+        $session->shouldReceive('forget')->with('Matthewbdaly\LaravelCart\Services\Cart')->once()->andReturn([]);
+        $uniqid = m::mock('Matthewbdaly\LaravelCart\Contracts\Services\UniqueId');
+        $cart = new Cart($session, $uniqid);
+        $this->assertEquals([], $cart->destroy());
+    }
+
     public function itemProvider()
     {
         return [[[

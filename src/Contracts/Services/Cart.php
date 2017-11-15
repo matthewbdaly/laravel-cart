@@ -7,4 +7,6 @@ interface Cart
     public function insert(array $item);
 
     public function all();
+
+    public function destroy();
 }
