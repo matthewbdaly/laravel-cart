@@ -26,6 +26,6 @@ class CartServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind('Matthewbdaly\LaravelCart\Contracts\Services\Cart', 'Matthewbdaly\LaravelCart\Services\Cart');
     }
 }
