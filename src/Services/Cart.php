@@ -43,6 +43,10 @@ class Cart implements CartContract
         return $this->session->get('Matthewbdaly\LaravelCart\Services\Cart');
     }
 
+    public function remove(string $rowId)
+    {
+    }
+
     public function destroy()
     {
         return $this->session->forget('Matthewbdaly\LaravelCart\Services\Cart');
