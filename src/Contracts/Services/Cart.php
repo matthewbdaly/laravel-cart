@@ -14,5 +14,7 @@ interface Cart
 
     public function remove(string $rowId);
 
+    public function total();
+
     public function destroy();
 }

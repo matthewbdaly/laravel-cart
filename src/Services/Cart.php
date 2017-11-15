@@ -79,6 +79,14 @@ class Cart implements CartContract
         return $this->session->forget('Matthewbdaly\LaravelCart\Services\Cart');
     }
 
+    public function total()
+    {
+        return Collection::make($this->all())
+            ->reduce(function ($total, $item) {
+                return $total + ($item['price'] * $item['qty']);
+            }, 0);
+    }
+
     private function hasStringKeys(array $items) {
         return count(array_filter(array_keys($items), 'is_string')) > 0;
     }
