@@ -8,5 +8,7 @@ interface Cart
 
     public function all();
 
+    public function remove(string $rowId);
+
     public function destroy();
 }
