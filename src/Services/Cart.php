@@ -43,12 +43,26 @@ class Cart implements CartContract
         return $this->session->get('Matthewbdaly\LaravelCart\Services\Cart');
     }
 
+    public function update(string $rowId, array $data)
+    {
+        $content = Collection::make($this->all())
+            ->map(function ($item) use ($rowId, $data) {
+                if ($item['row_id'] == $rowId) {
+                    foreach ($data as $k => $v) {
+                        $item[$k] = $v;
+                    }
+                }
+                return $item;
+            })->toArray();
+        return $this->session->put('Matthewbdaly\LaravelCart\Services\Cart', $content);
+    }
+
     public function remove(string $rowId)
     {
         $content = Collection::make($this->all())
-        ->filter(function ($item) use ($rowId) {
-            return $item['row_id'] != $rowId;
-        })->values()->toArray();
+            ->filter(function ($item) use ($rowId) {
+                return $item['row_id'] != $rowId;
+            })->values()->toArray();
         return $this->session->put('Matthewbdaly\LaravelCart\Services\Cart', $content);
     }
 
