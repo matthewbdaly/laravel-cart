@@ -21,11 +21,11 @@ class CartTest extends TestCase
 
     public function dataProvider()
     {
-        return [[
+        return [[[
             'qty'     => 1,
             'price'   => 39.95,
             'name'    => 'T-Shirt',
             'options' => array('Size' => 'L', 'Color' => 'Red')
-        ]];
+        ]]];
     }
 }
