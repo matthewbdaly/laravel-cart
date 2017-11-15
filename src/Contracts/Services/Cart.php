@@ -16,5 +16,7 @@ interface Cart
 
     public function total();
 
+    public function totalItems();
+    
     public function destroy();
 }

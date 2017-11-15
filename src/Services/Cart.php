@@ -87,6 +87,11 @@ class Cart implements CartContract
             }, 0);
     }
 
+    public function totalItems()
+    {
+        return count($this->all());
+    }
+
     private function hasStringKeys(array $items) {
         return count(array_filter(array_keys($items), 'is_string')) > 0;
     }

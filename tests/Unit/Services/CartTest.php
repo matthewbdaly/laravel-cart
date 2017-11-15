@@ -148,6 +148,21 @@ class CartTest extends TestCase
         $this->assertEquals((39.95 + (49.95 * 2)), $cart->total());
     }
 
+    /**
+     * @dataProvider arrayProvider
+     */
+    public function testCanGetTotalItems($data)
+    {
+        $data[0]['row_id'] = 'my_row_id_1';
+        $data[1]['row_id'] = 'my_row_id_2';
+        $newdata = $data;
+        $session = m::mock('Illuminate\Contracts\Session\Session');
+        $session->shouldReceive('get')->with('Matthewbdaly\LaravelCart\Services\Cart')->once()->andReturn($data);
+        $uniqid = m::mock('Matthewbdaly\LaravelCart\Contracts\Services\UniqueId');
+        $cart = new Cart($session, $uniqid);
+        $this->assertEquals(2, $cart->totalItems());
+    }
+
     public function itemProvider()
     {
         return [[[
