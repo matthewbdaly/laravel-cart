@@ -5,9 +5,9 @@ namespace Matthewbdaly\LaravelCart\Providers;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Service provider for flat pages
+ * Service provider for shopping cart
  */
-class FlatpageServiceProvider extends ServiceProvider
+class CartServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
