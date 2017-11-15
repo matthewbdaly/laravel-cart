@@ -14,7 +14,8 @@ class CartTest extends TestCase
     public function testCanAddItemToCart($data)
     {
         $session = m::mock('Illuminate\Contracts\Session\Session');
-        $session->shouldReceive('put')->with('laravel_shopping_cart', $data)->once();
+        $session->shouldReceive('get')->with('laravel_shopping_cart')->once()->andReturn([]);
+        $session->shouldReceive('put')->with('laravel_shopping_cart', [$data])->once();
         $cart = new Cart($session);
         $this->assertNull($cart->insert($data));
     }
@@ -25,8 +26,8 @@ class CartTest extends TestCase
     public function testCanAddMultipleItemsToCart($data)
     {
         $session = m::mock('Illuminate\Contracts\Session\Session');
-        $session->shouldReceive('put')->with('laravel_shopping_cart', $data[0])->once();
-        $session->shouldReceive('put')->with('laravel_shopping_cart', $data[1])->once();
+        $session->shouldReceive('get')->with('laravel_shopping_cart')->once()->andReturn([]);
+        $session->shouldReceive('put')->with('laravel_shopping_cart', $data)->once();
         $cart = new Cart($session);
         $this->assertNull($cart->insert($data));
     }

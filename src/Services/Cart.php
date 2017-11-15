@@ -4,6 +4,7 @@ namespace Matthewbdaly\LaravelCart\Services;
 
 use Matthewbdaly\LaravelCart\Contracts\Services\Cart as CartContract;
 use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Collection;
 
 class Cart implements CartContract
 {
@@ -16,13 +17,15 @@ class Cart implements CartContract
 
     public function insert(array $item)
     {
+        $content = new Collection($this->session->get('laravel_shopping_cart'));
         if ($this->hasStringKeys($item)) {
-            return $this->session->put('laravel_shopping_cart', $item);
+            $content->push($item);
         } else {
             foreach ($item as $subitem) {
-                $this->insert($subitem);
+                $content->push($subitem);
             }
         }
+        return $this->session->put('laravel_shopping_cart', $content->toArray());
     }
 
     private function hasStringKeys(array $items) {
