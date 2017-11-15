@@ -4,6 +4,12 @@ namespace Matthewbdaly\LaravelCart\Contracts\Services;
 
 interface Cart
 {
+    /**
+     * Add object to cart
+     *
+     * @param array $item The item to add.
+     * @return null
+     */
     public function insert(array $item);
 
     public function all();

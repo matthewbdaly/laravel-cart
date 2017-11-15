@@ -7,6 +7,9 @@ use Matthewbdaly\LaravelCart\Contracts\Services\UniqueId;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Collection;
 
+/**
+ * Cart class
+ */
 class Cart implements CartContract
 {
     protected $session;
@@ -19,6 +22,12 @@ class Cart implements CartContract
         $this->uniqid = $uniqid;
     }
 
+    /**
+     * Add object to cart
+     *
+     * @param array $item The item to add.
+     * @return null
+     */
     public function insert(array $item)
     {
         $content = new Collection($this->session->get('Matthewbdaly\LaravelCart\Services\Cart'));
