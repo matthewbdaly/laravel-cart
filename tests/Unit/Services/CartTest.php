@@ -84,7 +84,7 @@ class CartTest extends TestCase
         $session->shouldReceive('put')->with('Matthewbdaly\LaravelCart\Services\Cart', [$data[1]])->once();
         $uniqid = m::mock('Matthewbdaly\LaravelCart\Contracts\Services\UniqueId');
         $cart = new Cart($session, $uniqid);
-        $this->assertEquals([], $cart->remove('my_row_id_1'));
+        $this->assertEquals(null, $cart->remove('my_row_id_1'));
     }
 
     /**

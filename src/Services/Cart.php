@@ -45,6 +45,11 @@ class Cart implements CartContract
 
     public function remove(string $rowId)
     {
+        $content = Collection::make($this->all())
+        ->filter(function ($item) use ($rowId) {
+            return $item['row_id'] != $rowId;
+        })->values()->toArray();
+        return $this->session->put('Matthewbdaly\LaravelCart\Services\Cart', $content);
     }
 
     public function destroy()
