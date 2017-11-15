@@ -17,7 +17,7 @@ class Cart implements CartContract
 
     public function insert(array $item)
     {
-        $content = new Collection($this->session->get('laravel_shopping_cart'));
+        $content = new Collection($this->session->get('Matthewbdaly\LaravelCart\Services\Cart'));
         if ($this->hasStringKeys($item)) {
             $content->push($item);
         } else {
@@ -25,7 +25,7 @@ class Cart implements CartContract
                 $content->push($subitem);
             }
         }
-        return $this->session->put('laravel_shopping_cart', $content->toArray());
+        return $this->session->put('Matthewbdaly\LaravelCart\Services\Cart', $content->toArray());
     }
 
     private function hasStringKeys(array $items) {
