@@ -47,9 +47,13 @@ class CartTest extends TestCase
      */
     public function testCanAddToCartWhenItemsAlreadyExist($data)
     {
+        $olditem = $data[0];
+        $olditem['row_id'] = 'my_row_id_1';
+        $newitem = $data[1];
+        $newitem['row_id'] = 'my_row_id_2';
         $session = m::mock('Illuminate\Contracts\Session\Session');
-        $session->shouldReceive('get')->with('Matthewbdaly\LaravelCart\Services\Cart')->once()->andReturn([$data[0]]);
-        $session->shouldReceive('put')->with('Matthewbdaly\LaravelCart\Services\Cart', $data)->once();
+        $session->shouldReceive('get')->with('Matthewbdaly\LaravelCart\Services\Cart')->once()->andReturn([$olditem]);
+        $session->shouldReceive('put')->with('Matthewbdaly\LaravelCart\Services\Cart', [$olditem, $newitem])->once();
         $uniqid = m::mock('Matthewbdaly\LaravelCart\Contracts\Services\UniqueId');
         $uniqid->shouldReceive('get')->once()->andReturn('my_row_id_2');
         $cart = new Cart($session, $uniqid);
