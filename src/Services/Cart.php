@@ -162,7 +162,7 @@ class Cart implements CartContract
     /**
      * Validate input
      *
-     * @param array $items The array to check.
+     * @param array $item The array to check.
      * @return void
      * @throws CartItemIncomplete A cart item was incomplete.
      */
