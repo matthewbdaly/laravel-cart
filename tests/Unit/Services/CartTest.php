@@ -25,6 +25,19 @@ class CartTest extends TestCase
     }
 
     /**
+     * @dataProvider itemProvider
+     * @expectedException Matthewbdaly\LaravelCart\Exceptions\CartItemIncomplete
+     */
+    public function testThrowsExceptionWhenIncompleteItemAdded($data)
+    {
+        unset($data['qty']);
+        $session = m::mock('Illuminate\Contracts\Session\Session');
+        $uniqid = m::mock('Matthewbdaly\LaravelCart\Contracts\Services\UniqueId');
+        $cart = new Cart($session, $uniqid);
+        $this->assertNull($cart->insert($data));
+    }
+
+    /**
      * @dataProvider arrayProvider
      */
     public function testCanAddMultipleItemsToCart($data)
@@ -38,6 +51,21 @@ class CartTest extends TestCase
         $uniqid = m::mock('Matthewbdaly\LaravelCart\Contracts\Services\UniqueId');
         $uniqid->shouldReceive('get')->once()->andReturn('my_row_id_1');
         $uniqid->shouldReceive('get')->once()->andReturn('my_row_id_2');
+        $cart = new Cart($session, $uniqid);
+        $this->assertNull($cart->insert($data));
+    }
+
+    /**
+     * @dataProvider arrayProvider
+     * @expectedException Matthewbdaly\LaravelCart\Exceptions\CartItemIncomplete
+     */
+    public function testThrowsExceptionWhenMultipleIncompleteItemAdded($data)
+    {
+        foreach ($data as $item) {
+            unset($item['qty']);
+        }
+        $session = m::mock('Illuminate\Contracts\Session\Session');
+        $uniqid = m::mock('Matthewbdaly\LaravelCart\Contracts\Services\UniqueId');
         $cart = new Cart($session, $uniqid);
         $this->assertNull($cart->insert($data));
     }
