@@ -56,18 +56,15 @@ class CartTest extends TestCase
     }
 
     /**
-     * @dataProvider arrayProvider
+     * @dataProvider incompleteArrayProvider
      * @expectedException Matthewbdaly\LaravelCart\Exceptions\CartItemIncomplete
      */
     public function testThrowsExceptionWhenMultipleIncompleteItemAdded($data)
     {
-        foreach ($data as $item) {
-            unset($item['qty']);
-        }
         $session = m::mock('Illuminate\Contracts\Session\Session');
         $uniqid = m::mock('Matthewbdaly\LaravelCart\Contracts\Services\UniqueId');
         $cart = new Cart($session, $uniqid);
-        $this->assertNull($cart->insert($data));
+        $cart->insert($data);
     }
 
     /**
@@ -210,6 +207,19 @@ class CartTest extends TestCase
             'options' => ['Size' => 'L', 'Color' => 'Red']
         ], [
             'qty'     => 2,
+            'price'   => 49.95,
+            'name'    => 'Shirt',
+            'options' => ['Size' => 'M', 'Color' => 'Blue']
+        ]]]];
+    }
+
+    public function incompleteArrayProvider()
+    {
+        return [[[[
+            'price'   => 39.95,
+            'name'    => 'T-Shirt',
+            'options' => ['Size' => 'L', 'Color' => 'Red']
+        ], [
             'price'   => 49.95,
             'name'    => 'Shirt',
             'options' => ['Size' => 'M', 'Color' => 'Blue']
