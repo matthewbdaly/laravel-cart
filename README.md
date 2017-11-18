@@ -4,3 +4,10 @@
 [![Coverage Status](https://coveralls.io/repos/github/matthewbdaly/laravel-cart/badge.svg?branch=master)](https://coveralls.io/github/matthewbdaly/laravel-cart?branch=master)
 
 Simple shopping cart implementation for Laravel. Loosely inspired by CodeIgniter's cart class.
+
+Installation
+------------
+
+```
+composer require matthewbdaly/laravel-cart
+```
