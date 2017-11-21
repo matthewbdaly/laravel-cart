@@ -12,6 +12,13 @@ class TestCase extends BaseTestCase
 		return ['Matthewbdaly\LaravelCart\Providers\CartServiceProvider'];
     }
 
+	protected function getPackageAliases($app)
+	{
+		return [
+			'Cart' => 'Matthewbdaly\LaravelCart\Facade'
+		];
+	}
+
     public function tearDown()
     {
         m::close();

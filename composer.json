@@ -32,7 +32,11 @@
         "laravel": {
             "providers": [
                 "Matthewbdaly\\LaravelCart\\Providers\\CartServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Cart": "Matthewbdaly\\LaravelCart\\Facade"
+            }
+
         }
     }
 }
