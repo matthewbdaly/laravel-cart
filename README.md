@@ -15,7 +15,7 @@ composer require matthewbdaly/laravel-cart
 Usage
 -----
 
-The cart implements the interface `Matthewbdaly\LaravelCart\Contracts\Services\Cart`, so you can use that to type-hint it.
+The cart implements the interface `Matthewbdaly\LaravelCart\Contracts\Services\Cart`, so you can use that to type-hint it. Alternatively you can use the `Cart` facade.
 
 Add item
 --------
