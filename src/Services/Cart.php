@@ -101,6 +101,24 @@ class Cart implements CartContract
     }
 
     /**
+     * Increment quantity of an object
+     *
+     * @param string $rowId The row ID.
+     * @return array
+     */
+    public function increment(string $rowId)
+    {
+        $content = Collection::make($this->all())
+            ->map(function ($item) use ($rowId) {
+                if ($item['row_id'] == $rowId) {
+                    $item['qty'] += 1;
+                }
+                return $item;
+            })->toArray();
+        return $this->session->put('Matthewbdaly\LaravelCart\Services\Cart', $content);
+    }
+
+    /**
      * Remove a single object from cart
      *
      * @param string $rowId The row ID.

@@ -37,6 +37,14 @@ interface Cart
     public function update(string $rowId, array $data);
 
     /**
+     * Increment quantity of an object
+     *
+     * @param string $rowId The row ID.
+     * @return array
+     */
+    public function increment(string $rowId);
+
+    /**
      * Remove a single object from cart
      *
      * @param string $rowId The row ID.
