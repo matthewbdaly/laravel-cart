@@ -45,6 +45,14 @@ interface Cart
     public function increment(string $rowId);
 
     /**
+     * Decrement quantity of an object
+     *
+     * @param string $rowId The row ID.
+     * @return array
+     */
+    public function decrement(string $rowId);
+
+    /**
      * Remove a single object from cart
      *
      * @param string $rowId The row ID.
