@@ -1,0 +1,14 @@
+{
+    "timeout": 10,
+    "source": {
+        "directories": [
+            "src"
+        ],
+        "excludes": [
+            "Contracts"
+        ]
+    },
+    "logs": {
+        "text": "infection-log.txt"
+    }
+}

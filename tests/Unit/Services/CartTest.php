@@ -162,6 +162,14 @@ class CartTest extends TestCase
         $uniqid = m::mock('Matthewbdaly\LaravelCart\Contracts\Services\UniqueId');
         $cart = new Cart($session, $uniqid);
         $this->assertEquals(null, $cart->decrement('my_row_id_2'));
+        $newerdata = $newdata;
+        $newerdata[1]['qty'] = 0;
+        $session->shouldReceive('get')->with('Matthewbdaly\LaravelCart\Services\Cart')->once()->andReturn($newdata);
+        $session->shouldReceive('put')->with('Matthewbdaly\LaravelCart\Services\Cart', $newerdata)->once();
+        $this->assertEquals(null, $cart->decrement('my_row_id_2'));
+        $session->shouldReceive('get')->with('Matthewbdaly\LaravelCart\Services\Cart')->once()->andReturn($newerdata);
+        $session->shouldReceive('put')->with('Matthewbdaly\LaravelCart\Services\Cart', $newerdata)->once();
+        $this->assertEquals(null, $cart->decrement('my_row_id_2'));
     }
 
     /**
